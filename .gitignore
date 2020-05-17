@@ -1,0 +1,5 @@
+.serverless/**
+node_modules/**
+customConfig.yml
+package-lock.json
+yarn.lock

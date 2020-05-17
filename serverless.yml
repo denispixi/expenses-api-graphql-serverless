@@ -1,0 +1,54 @@
+service: expense-tracker-project
+custom: ${file(customConfig.yml)}
+plugins:
+  - serverless-offline
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: ${self:custom.profile}
+  # THE NEXT COMMENTED LINES ARE USED FOR PROJECTS SPLITTED IN MULTIPLE REPOS
+  # apiGateway:
+  #   restApiId: ${self:custom.api.${self:custom.stage}}
+  #   restApiRootResourceId: ${self:custom.api-resource.${self:custom.stage}} 
+  region: us-east-2
+  stage: dev
+package:
+  individually: true
+  exclude:
+    - node_modules/**
+    - resources/**
+    - ./**.json
+    - ./**.yml
+    - ./**.lock
+    # Se excluyen todas las funciones a este nivel, y se incluyen 
+    # cada una desde la misma funcion, asi se suben por separado
+    # - LMBJVVMTODPS/**
+    # - LMBJVVMTOBENEFICIARIO/**
+    # - LMBJVVMTOIF02/**
+    # - LMBJVVMTOALLFINANZ/**
+functions:
+  graphql:
+    # this is formatted as <FILENAME>.<HANDLER>
+    name: ExpenseTrackerGraphQlAPI
+    handler: src/index.graphqlHandler
+    environment:
+      MONGODB_URI: ${self:custom.env.MONGODB_URI}
+    layers:
+      - ${self:custom.layers.common_libraries}
+    events:
+      - http:
+          path: /graphql
+          method: post
+          cors: true
+          authorizer: aws_iam
+      - http:
+          path: /graphql
+          method: get
+          cors: true
+          # authorizer: aws_iam
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+  # Invoke with caller credentials. LET'S USE A CUSTOM HEADER FOR SIMPLICITY IN LOCAL DEVELOPMENT
+  # - ${file(resources/invoke-with-credentials.yml)}

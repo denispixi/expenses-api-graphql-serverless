@@ -1,6 +1,5 @@
-// @ts-check
 const { ApolloServer } = require('apollo-server-lambda')
-const typeDefs = require('./graphql/schema')
+const typeDefs = require('./graphql/schema').default
 const resolvers = require('./resolvers')
 
 const server = new ApolloServer({

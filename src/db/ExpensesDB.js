@@ -24,7 +24,12 @@ async function registerExpense(expense) {
 
 async function registerWallet(wallet) {
   await connect()
-  const newWallet = await new Wallet(wallet).save()
+  let newWallet
+  if (wallet._id) {
+    newWallet = await Wallet.findByIdAndUpdate(wallet._id, wallet, { new: true })
+  } else {
+    newWallet = await new Wallet(wallet).save()
+  }
   await disconnect()
   return newWallet
 }

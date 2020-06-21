@@ -44,8 +44,8 @@ async function registerWallet(parent, args, context) {
 /**
  * Extra fields resolvers
  */
-async function getExpenseWallet(parent, args, context) {
-  console.log({parent})
+async function getExpenseWallet(parent) {
+  console.log({ parent })
   const wallet = await ExpensesDB.getWalletById(parent.wallet)
   return wallet
 }

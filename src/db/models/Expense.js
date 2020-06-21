@@ -13,6 +13,7 @@ module.exports = mongoose.model("Expense", new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true
   },
+  comments: String,
   imageUris: {
     type: [String],
     required: true

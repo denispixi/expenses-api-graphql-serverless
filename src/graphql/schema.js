@@ -1,4 +1,3 @@
-// @ts-check
 const { gql } = require('apollo-server-lambda')
 
 module.exports = gql`
@@ -13,7 +12,7 @@ type Query {
 
 type Mutation {
   registerExpense(amount: Float!, wallet: ID!, imageUris: [String!]): Expense!
-  registerWallet(name: String!, walletType: String!, funds: Float!, color: String): Wallet!
+  registerWallet(name: String!, walletType: String!, funds: Float!, color: String, _id: ID): Wallet!
 }
 
 type User {
@@ -28,6 +27,7 @@ type Expense {
   _id: ID!
   amount: Float!
   wallet: Wallet!
+  comments: String
   imageUris: [String!]!
   createdAt: Datetime!
 }

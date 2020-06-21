@@ -20,6 +20,8 @@ package:
     - ./**.json
     - ./**.yml
     - ./**.lock
+    - .gitignore
+    - .vscode/**
     # Se excluyen todas las funciones a este nivel, y se incluyen 
     # cada una desde la misma funcion, asi se suben por separado
     # - LMBJVVMTODPS/**

@@ -1,16 +1,13 @@
-// @ts-check
 const scalars = require('./scalars')
-// const userResolvers = require('./users')
-const expensesResolvers = require('./expenses')
-
+const ExpensesResolvers = require('./ExpensesResolver')
 
 module.exports = {
   Query: {
-    ...expensesResolvers.QUERIES,
+    ...ExpensesResolvers.QUERIES,
   },
   Mutation: {
-    ...expensesResolvers.MUTATIONS,
+    ...ExpensesResolvers.MUTATIONS,
   },
-  ...expensesResolvers.EXTRA_FIELDS,
+  ...ExpensesResolvers.EXTRA_FIELDS,
   ...scalars,
 }

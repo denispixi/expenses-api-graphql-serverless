@@ -1,23 +1,23 @@
-// @ts-check
-const { UsersDB, ExpensesDB } = require('../db')
+const UsersDB = require('../db/UsersDB')
+const ExpensesDB = require('../db/ExpensesDB')
 
 /**
  * Queries
  */
-async function getDatetime(parent, args, context) {
+async function getDatetime(_parent, args, context) {
   const userId = context.event.headers["expense-tracker-user-id"]
   const user = await UsersDB.getUserByCognitoId(userId)
   console.log('user:::', JSON.stringify(user, null, 2))
   return new Date(args.datetime)
 }
 
-async function getExpenses(parent, args, context) {
+async function getExpenses(_parent, _args, context) {
   const userId = context.event.headers["expense-tracker-user-id"]
   const expenses = await ExpensesDB.getExpenses(userId)
   return expenses
 }
 
-async function getWallets(parent, args, context) {
+async function getWallets(_parent, _args, context) {
   const userId = context.event.headers["expense-tracker-user-id"]
   const wallets = await ExpensesDB.getWallets(userId)
   return wallets
@@ -26,7 +26,7 @@ async function getWallets(parent, args, context) {
 /**
  * Mutations
  */
-async function registerExpense(parent, args, context) {
+async function registerExpense(_parent, args, context) {
   const userId = context.event.headers["expense-tracker-user-id"]
   const expense = { ...args, owner: userId }
   const newExpense = await ExpensesDB.registerExpense(expense)
@@ -34,7 +34,7 @@ async function registerExpense(parent, args, context) {
   return newExpense
 }
 
-async function registerWallet(parent, args, context) {
+async function registerWallet(_parent, args, context) {
   const userId = context.event.headers["expense-tracker-user-id"]
   const newWallet = await ExpensesDB.registerWallet({ ...args, owner: userId })
   console.log("newWallet:::", JSON.stringify(newWallet, null, 2))

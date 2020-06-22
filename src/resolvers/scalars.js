@@ -22,7 +22,7 @@ module.exports = {
         if (ast.kind === Kind.STRING && !Number.isNaN(Date.parse(ast.value)))
           return new Date(ast.value); // ast value is always in string format
         throw new ValidationError('Invalid Date String')
-      } catch {
+      } catch (err) {
         throw new ValidationError('Invalid Date String')
       }
     },

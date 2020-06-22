@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 if (process.env.IS_OFFLINE) {
   delete mongoose.connection.models["Expense"]
 }
 
-module.exports = mongoose.model("Expense", new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
   amount: {
     type: Number,
     required: true
@@ -30,4 +30,6 @@ module.exports = mongoose.model("Expense", new mongoose.Schema({
   }
 }, {
   versionKey: false
-}))
+})
+
+module.exports = mongoose.model("Expense", ExpenseSchema)

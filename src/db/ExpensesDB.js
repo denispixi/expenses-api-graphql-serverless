@@ -1,6 +1,7 @@
 // @ts-check
 const mongoose = require('mongoose')
-const { Expense, Wallet } = require('./models')
+const Wallet = require('../models/Wallet')
+const Expense = require('../models/Expense')
 
 async function connect() {
   await mongoose.connect(process.env.MONGODB_URI, {

@@ -1,6 +1,6 @@
 // @ts-check
 const mongoose = require('mongoose')
-const { User } = require('./models')
+const User = require('../models/User')
 
 async function getUserByCognitoId(_id) {
   try {
